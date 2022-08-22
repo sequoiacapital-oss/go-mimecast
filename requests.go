@@ -50,7 +50,6 @@ func (r *Request) AuthorizationHeader() string {
 	url, _ := url.Parse(r.api.Url())
 
 	dataToSign := r.Date() + ":" + r.Id() + ":" + url.RequestURI() + ":" + MimeCastGlobalConfig.ApplicationKey
-	fmt.Printf("Data to sign: %v\n", dataToSign)
 
 	decodedSecretKey, err := base64.StdEncoding.DecodeString(MimeCastGlobalConfig.SecretKey)
 
