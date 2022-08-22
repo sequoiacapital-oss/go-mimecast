@@ -63,14 +63,14 @@ func TestRequestDate(t *testing.T) {
 }
 
 func TestAuthorizationHeader(t *testing.T) {
-	r := &Request{id: "3d796b76-4180-40e5-8f7c-6e0fd643b1a9", date: "Sun, 21 Aug 2022 13:49:40 EDT", api: &TestApi{}}
+	r := &Request{id: "3d796b76-4180-40e5-8f7c-6e0fd643b1a9", date: "Sun, 21 Aug 2022 13:49:40 UTC", api: &TestApi{}}
 
-	assert.Equal(t, r.AuthorizationHeader(), "MC AccessKey:HlokhZ93dzw5P6xGgeveOR4JhiM=")
+	assert.Equal(t, r.AuthorizationHeader(), "MC AccessKey:WOywLsnZlsE+D6bp/ug6uch5kxc=")
 }
 
 func TestRequest(t *testing.T) {
 	api := &TestApi{}
-	r := &Request{id: "3d796b76-4180-40e5-8f7c-6e0fd643b1a9", date: "Sun, 21 Aug 2022 13:49:40 EDT", api: api}
+	r := &Request{id: "3d796b76-4180-40e5-8f7c-6e0fd643b1a9", date: "Sun, 21 Aug 2022 13:49:40 UTC", api: api}
 	req := r.buildRequest()
 
 	assert.Equal(t, req.URL.String(), api.Url())

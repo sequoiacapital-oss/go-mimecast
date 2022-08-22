@@ -12,6 +12,7 @@ import (
 	"log"
 	"net/http"
 	"net/http/httputil"
+	"net/url"
 	"os"
 	"strconv"
 	"time"
@@ -39,14 +40,17 @@ func (r *Request) Id() string {
 // format: Tue, 24 Nov 2015 12:50:11 UTC
 func (r *Request) Date() string {
 	if r.date == "" {
-		r.date = time.Now().Format(time.RFC1123)
+		r.date = time.Now().UTC().Format(time.RFC1123)
 	}
 
 	return r.date
 }
 
 func (r *Request) AuthorizationHeader() string {
-	dataToSign := r.Date() + ":" + r.Id() + ":" + r.api.Url() + ":" + MimeCastGlobalConfig.ApplicationKey
+	url, _ := url.Parse(r.api.Url())
+
+	dataToSign := r.Date() + ":" + r.Id() + ":" + url.RequestURI() + ":" + MimeCastGlobalConfig.ApplicationKey
+	fmt.Printf("Data to sign: %v\n", dataToSign)
 
 	decodedSecretKey, err := base64.StdEncoding.DecodeString(MimeCastGlobalConfig.SecretKey)
 
