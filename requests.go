@@ -96,7 +96,7 @@ func (r *Request) buildRequest() *http.Request {
 	return req
 }
 
-func buildMimecastHttpRequest(a ApiEndpoint) *http.Request {
+func BuildMimecastHttpRequest(a ApiEndpoint) *http.Request {
 	r := &Request{api: a}
 	return r.buildRequest()
 }
